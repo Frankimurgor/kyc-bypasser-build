@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.filled.Description // Added missing import
 import com.kycbypasser.app.ui.screen.DashboardScreen
 import com.kycbypasser.app.ui.screen.TargetsScreen
 import com.kycbypasser.app.ui.screen.MediaScreen
@@ -20,10 +19,6 @@ import com.kycbypasser.app.ui.screen.DocumentGeneratorScreen
 import com.kycbypasser.app.ui.theme.CardBackground
 import com.kycbypasser.app.ui.theme.CyanAccent
 
-/**
- * Main activity with bottom navigation between the main screens.
- * Creates shared KycState that all screens read/write.
- */
 class MainActivity : ComponentActivity() {
 
     private enum class Screen {
@@ -38,7 +33,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Create shared state that persists across all screens
         val state = KycState(this)
 
         setContent {
@@ -85,8 +79,9 @@ class MainActivity : ComponentActivity() {
                                 selected = currentScreen == Screen.MEDIA,
                                 onClick = { currentScreen = Screen.MEDIA }
                             )
+                            // FIXED: Using a valid icon
                             NavigationBarItem(
-                                icon = { Icon(Icons.Default.Description, "Documents") },
+                                icon = { Icon(Icons.Default.Edit, "Documents") },
                                 label = { Text("Documents") },
                                 selected = currentScreen == Screen.DOCUMENT_GENERATOR,
                                 onClick = { currentScreen = Screen.DOCUMENT_GENERATOR }
@@ -109,7 +104,6 @@ class MainActivity : ComponentActivity() {
                             Screen.DASHBOARD -> DashboardScreen(state)
                             Screen.TARGETS -> TargetsScreen(state)
                             Screen.MEDIA -> MediaScreen(state)
-                            // Pass the state to the placeholder
                             Screen.DOCUMENT_GENERATOR -> DocumentGeneratorScreen(state) 
                             Screen.SETTINGS -> SettingsScreen(state)
                         }
