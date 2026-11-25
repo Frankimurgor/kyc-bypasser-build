@@ -79,7 +79,6 @@ class MainActivity : ComponentActivity() {
                                 selected = currentScreen == Screen.MEDIA,
                                 onClick = { currentScreen = Screen.MEDIA }
                             )
-                            // FIXED: Using a valid icon
                             NavigationBarItem(
                                 icon = { Icon(Icons.Default.Edit, "Documents") },
                                 label = { Text("Documents") },
@@ -104,8 +103,9 @@ class MainActivity : ComponentActivity() {
                             Screen.DASHBOARD -> DashboardScreen(state)
                             Screen.TARGETS -> TargetsScreen(state)
                             Screen.MEDIA -> MediaScreen(state)
-                            Screen.DOCUMENT_GENERATOR -> DocumentGeneratorScreen(state) 
-                            Screen.SETTINGS -> SettingsScreen(state)
+                            Screen.DOCUMENT_GENERATOR -> DocumentGeneratorScreen(state)
+                            // FIXED: Named argument forces the compiler to look for the 'state' parameter
+                            Screen.SETTINGS -> SettingsScreen(state = state)
                         }
                     }
                 }
