@@ -24,28 +24,23 @@ jobs:
       with:
         packages: ''
 
-    - name: Install NDK and accept licenses
+    - name: Install NDK
       run: |
         yes | sdkmanager --licenses
         sdkmanager --install "ndk;26.1.10909125"
-        echo "ndkVersion = \"26.1.10909125\"" >> app/build.gradle.kts
 
-    # NEW STEP: Find where gradlew actually is
-    - name: Locate and Grant permission for gradlew
-      run: |
-        find . -name "gradlew" -exec chmod +x {} \;
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-    # NEW STEP: Build using the located gradlew script
     - name: Build Debug APK
       run: |
         if [ -f "gradlew" ]; then
-          ./gradlew assembleDebug --stacktrace
+          # Pass the NDK version directly to Gradle instead of modifying the file
+          ./gradlew assembleDebug -PndkVersion="26.1.10909125" --stacktrace
         elif [ -f "gradle/wrapper/gradle-wrapper.jar" ]; then
-          # If the wrapper is in a subfolder, usually root
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug -PndkVersion="26.1.10909125" --stacktrace
         else
-          # Fallback to system gradle if wrapper is completely missing
-          gradle assembleDebug --stacktrace
+          gradle assembleDebug -PndkVersion="26.1.10909125" --stacktrace
         fi
 
     - name: Upload APK
