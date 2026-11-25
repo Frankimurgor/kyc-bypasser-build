@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Description // Added missing import
 import com.kycbypasser.app.ui.screen.DashboardScreen
 import com.kycbypasser.app.ui.screen.TargetsScreen
 import com.kycbypasser.app.ui.screen.MediaScreen
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
         DASHBOARD,
         TARGETS,
         MEDIA,
-        DOCUMENT_GENERATOR,  // NEW: Document generator from top KYC bypassers
+        DOCUMENT_GENERATOR,
         SETTINGS
     }
 
@@ -108,7 +109,8 @@ class MainActivity : ComponentActivity() {
                             Screen.DASHBOARD -> DashboardScreen(state)
                             Screen.TARGETS -> TargetsScreen(state)
                             Screen.MEDIA -> MediaScreen(state)
-                            Screen.DOCUMENT_GENERATOR -> DocumentGeneratorScreen(state)
+                            // Pass the state to the placeholder
+                            Screen.DOCUMENT_GENERATOR -> DocumentGeneratorScreen(state) 
                             Screen.SETTINGS -> SettingsScreen(state)
                         }
                     }
