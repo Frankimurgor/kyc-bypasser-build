@@ -7,6 +7,11 @@ android {
     namespace = "com.kycbypasser.app"
     compileSdk = 34
 
+    // This tells Kotlin to ignore the strict Compose compiler version check
+    kotlinOptions {
+        freeCompilerArgs += listOf("-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true")
+    }
+
     defaultConfig {
         applicationId = "com.kycbypasser.app"
         minSdk = 28
@@ -44,7 +49,8 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.13"
+        // CHANGED: Downgraded from 1.5.13 to 1.5.11 to match the cloud's Kotlin version
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
 }
 
@@ -70,7 +76,6 @@ dependencies {
 
     // Storage
     implementation("androidx.preference:preference-ktx:1.2.1")
-
 
     // Testing
     testImplementation("junit:junit:4.13.2")
