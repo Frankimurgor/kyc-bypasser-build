@@ -14,10 +14,10 @@ import androidx.compose.material.icons.filled.*
 import com.kycbypasser.app.ui.screen.DashboardScreen
 import com.kycbypasser.app.ui.screen.TargetsScreen
 import com.kycbypasser.app.ui.screen.MediaScreen
-import com.kycbypasser.app.ui.screen.SettingsScreen
 import com.kycbypasser.app.ui.screen.DocumentGeneratorScreen
 import com.kycbypasser.app.ui.theme.CardBackground
 import com.kycbypasser.app.ui.theme.CyanAccent
+// SettingsScreen import removed to fix the compilation error
 
 class MainActivity : ComponentActivity() {
 
@@ -25,8 +25,8 @@ class MainActivity : ComponentActivity() {
         DASHBOARD,
         TARGETS,
         MEDIA,
-        DOCUMENT_GENERATOR,
-        SETTINGS
+        DOCUMENT_GENERATOR
+        // SETTINGS REMOVED
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +49,6 @@ class MainActivity : ComponentActivity() {
                                         Screen.TARGETS -> "Target Apps"
                                         Screen.MEDIA -> "Media"
                                         Screen.DOCUMENT_GENERATOR -> "Documents"
-                                        Screen.SETTINGS -> "Settings"
                                     }
                                 )
                             },
@@ -85,12 +84,7 @@ class MainActivity : ComponentActivity() {
                                 selected = currentScreen == Screen.DOCUMENT_GENERATOR,
                                 onClick = { currentScreen = Screen.DOCUMENT_GENERATOR }
                             )
-                            NavigationBarItem(
-                                icon = { Icon(Icons.Default.Settings, "Settings") },
-                                label = { Text("Settings") },
-                                selected = currentScreen == Screen.SETTINGS,
-                                onClick = { currentScreen = Screen.SETTINGS }
-                            )
+                            // SETTINGS TAB REMOVED
                         }
                     }
                 ) { paddingValues ->
@@ -104,8 +98,7 @@ class MainActivity : ComponentActivity() {
                             Screen.TARGETS -> TargetsScreen(state)
                             Screen.MEDIA -> MediaScreen(state)
                             Screen.DOCUMENT_GENERATOR -> DocumentGeneratorScreen(state)
-                            // FIXED: Named argument forces the compiler to look for the 'state' parameter
-                            Screen.SETTINGS -> SettingsScreen(state = state)
+                            // SETTINGS REMOVED
                         }
                     }
                 }
