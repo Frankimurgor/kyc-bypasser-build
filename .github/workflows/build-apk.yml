@@ -19,8 +19,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    # UPGRADED to v4 to fix the "Failed to find package 'tools'" error
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
+      with:
+        packages: ''
 
     - name: Install NDK and accept licenses
       run: |
